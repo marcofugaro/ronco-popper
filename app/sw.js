@@ -1,16 +1,16 @@
 console.log('Service Worker started: ', self);
 
 var urlsToCache = [
-    '/ronco/',
-    '/ronco/css/style.min.css',
-    '/ronco/js/main.min.js',
-    '/ronco/images/hand-of-god.png',
-    '/ronco/images/just-the-tip.png',
-    '/ronco/images/polka-pattern.png',
-    '/ronco/images/ronco.png',
-    '/ronco/sounds/gagging.mp3',
-    '/ronco/sounds/pop.mp3',
-    // '/ronco/sounds/ah-ma-e-ronco.mp3'
+    '/',
+    '/css/style.min.css',
+    '/js/main.min.js',
+    '/images/hand-of-god.png',
+    '/images/just-the-tip.png',
+    '/images/polka-pattern.png',
+    '/images/ronco.png',
+    '/sounds/gagging.mp3',
+    '/sounds/pop.mp3',
+    // '/sounds/ah-ma-e-ronco.mp3'
 ];
 
 
