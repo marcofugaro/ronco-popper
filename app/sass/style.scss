@@ -1,3 +1,6 @@
 @import 'vars';
+
+@import 'vendor/**/*.scss';
+
 @import 'base';
 @import 'components/**/*.scss';
