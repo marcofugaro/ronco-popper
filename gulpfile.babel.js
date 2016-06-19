@@ -1,46 +1,45 @@
 import gulp from 'gulp';
 import fs from 'fs';
-import { assign } from 'lodash';
 
+
+const sourceDir = './app/';
+const buildDir = './build/';
 
 const config = {
-    sourceDir: './app/',
-    buildDir: './build/',
-};
-
-assign(config, {
+    sourceDir,
+    buildDir,
 
     markup: {
-        src: [config.sourceDir + '*.*'],
-        dest: config.buildDir,
+        src: [sourceDir + '*.*'],
+        dest: buildDir,
     },
 
     styles: {
-        src: config.sourceDir + 'sass/**/*.scss',
-        dest: config.buildDir + 'css',
+        src: sourceDir + 'sass/**/*.scss',
+        dest: buildDir + 'css',
     },
 
     browserify: {
-        src: config.sourceDir + 'js/main.js',
-        dest: config.buildDir + 'js',
+        src: sourceDir + 'js/main.js',
+        dest: buildDir + 'js',
         bundleName: 'main.min.js'
     },
 
     images: {
-        src: config.sourceDir + 'images/**/*',
-        dest: config.buildDir + 'images'
+        src: sourceDir + 'images/**/*',
+        dest: buildDir + 'images'
     },
 
     sounds: {
-        src: config.sourceDir + 'sounds/**/*',
-        dest: config.buildDir + 'sounds'
+        src: sourceDir + 'sounds/**/*',
+        dest: buildDir + 'sounds'
     }
 
-});
+};
 
 export default config;
 
-
+//TODO use requiredir
 const tasks = fs.readdirSync('./tasks');
 tasks.forEach(function(task) {
     if(task.slice(-3) === '.js') require('./tasks/' + task);
