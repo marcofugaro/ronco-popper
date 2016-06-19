@@ -1,6 +1,6 @@
 {
   "name": "ronco-popper",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple and stupid web app I made to try out the Service Worker APIs.",
   "devDependencies": {
     "babel-core": "^6.9.1",
