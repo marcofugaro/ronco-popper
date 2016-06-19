@@ -18,7 +18,7 @@ setTimeout(() => {
 })
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/ronco/sw.js', { scope: './' })
+    navigator.serviceWorker.register('/sw.js', { scope: './' })
         .then(function(reg) {
             console.log('Service Worker registration successful: ', reg);
         })
