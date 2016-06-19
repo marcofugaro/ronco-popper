@@ -1,5 +1,6 @@
 console.log('Service Worker started: ', self);
 
+var CACHE_VERSION = 'ronco-v1.0.0';
 var urlsToCache = [
     '/',
     '/css/style.min.css',
@@ -18,7 +19,7 @@ self.addEventListener('install', function(event) {
     console.log('Installed: ', event);
 
     event.waitUntil(
-        caches.open('ronco').then(function(cache) {
+        caches.open(CACHE_VERSION).then(function(cache) {
             console.log('Opened cache: ', cache);
 
             return cache.addAll(urlsToCache).then(function() {
@@ -32,8 +33,18 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', function(event) {
     console.log('Activated: ', event);
 
-    // Sets itself as main Service Worker
-    event.waitUntil(self.clients.claim());
+    event.waitUntil(
+        caches.keys().then(function(cacheNames) {
+            return Promise.all(cacheNames.map(function(cacheName) {
+                if (cacheName !== CACHE_VERSION) {
+                    return caches.delete(cacheName);
+                }
+            })).then(function() {
+                // Sets itself as main Service Worker
+                return self.clients.claim();
+            });
+        })
+    );
 });
 
 self.addEventListener('fetch', function(event) {
@@ -43,7 +54,6 @@ self.addEventListener('fetch', function(event) {
         caches.match(event.request).then(function(response) {
             // Cache hit - return response, otherwhise make a new request
             return response || fetch(event.request);
-    
         })
     );
 });
