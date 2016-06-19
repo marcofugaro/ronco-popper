@@ -1,0 +1,69 @@
+.ronco-button {
+    width: $ronco-width;
+    height: $ronco-width;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    background-color: $ronco-color;
+    border-radius: 50%;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow:
+            0 1px darken($ronco-color, 17%), //TODO make this in sass
+            0 2px darken($ronco-color, 17%),
+            0 3px darken($ronco-color, 17%),
+            0 4px darken($ronco-color, 17%),
+            0 5px darken($ronco-color, 17%),
+            0 6px darken($ronco-color, 17%),
+            0 7px darken($ronco-color, 17%),
+            0 8px darken($ronco-color, 17%),
+            0 9px darken($ronco-color, 17%),
+            0 10px darken($ronco-color, 17%),
+            0 11px darken($ronco-color, 17%),
+            0 12px darken($ronco-color, 17%),
+            0 13px darken($ronco-color, 17%),
+            0 14px darken($ronco-color, 17%),
+            0 15px darken($ronco-color, 17%),
+            0 16px darken($ronco-color, 17%),
+            0 17px darken($ronco-color, 17%),
+            0 25px 10px -3px rgba(black, 0.8),
+            0 35px 15px rgba(black, 0.4);
+    
+    // transform: rotateX(35deg);
+    transform: scaleY(0.82) translateX(-50%);
+    
+    &::before {
+        content: '';
+        width: $ronco-width * 1.06;
+        height: $ronco-width * 1.06;
+        background-image: radial-gradient($ronco-color 63%, white 100%);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    
+    &.clicked, &:active {
+        transform: scaleY(0.82) translateY(10px) translateX(-50%);
+        box-shadow:
+            0 1px darken($ronco-color, 17%),
+            0 2px darken($ronco-color, 17%),
+            0 3px darken($ronco-color, 17%),
+            0 4px darken($ronco-color, 17%),
+            0 5px darken($ronco-color, 17%),
+            0 6px darken($ronco-color, 17%),
+            0 7px darken($ronco-color, 17%),
+            0 15px 10px -3px rgba(black, 0.8),
+            0 25px 15px -2px rgba(black, 0.4);
+    }
+    
+    img {
+        width: 80%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,16 @@
+.mouth-up, .mouth-down {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    // will-change: transform;
+    width: $mouth-width;
+}
+
+.mouth-up {
+    z-index: 3;
+}
+
+.mouth-gagging, .mouth-sucking { 
+    display: none; 
+}

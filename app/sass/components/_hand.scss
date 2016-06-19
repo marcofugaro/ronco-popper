@@ -1,0 +1,31 @@
+.hand {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    transform: translate3d(0, -50%, 0);
+    transform-origin: 76% 49%;
+    // will-change: transform;
+    width: $hand-width;
+    
+    cursor: grab;
+    &:active { cursor: grabbing; }
+    
+    padding-top: 6%;
+    
+    img {
+        width: 100%;
+        display: block;
+    }
+    
+    .meat {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+    }
+    
+    .hide {
+        opacity: 0;
+    }
+}

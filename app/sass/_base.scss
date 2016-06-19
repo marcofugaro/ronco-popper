@@ -1,0 +1,15 @@
+body {
+    padding: 0 10px;
+    background-color: $yellow;
+    background-image: url(../images/polka-pattern.png); 
+}
+
+* { user-select: none; }
+
+.container {
+    max-width: $max-width;
+    height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "name": "Ronco Popper",
+  "launch_path": "/index.html",
+  "description": "A simple and stupid web app I made to try out the Service Worker APIs.",
+  "icons": {
+    "128": "/images/Ronco_128.png"
+  },
+  "developer": {
+    "name": "Marco Fugaro",
+    "url": "http://marcofugaro.it"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en"​
+}
