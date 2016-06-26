@@ -41,21 +41,21 @@ class Hand {
     }
     
     addEventListeners() {
-    document.addEventListener('touchstart', this.onStart.bind(this));
-    document.addEventListener('touchmove', this.onMove.bind(this));
-    document.addEventListener('touchend', this.onEnd.bind(this));
+        document.addEventListener('touchstart', this.onStart.bind(this));
+        document.addEventListener('touchmove', this.onMove.bind(this));
+        document.addEventListener('touchend', this.onEnd.bind(this));
 
-    document.addEventListener('mousedown', this.onStart.bind(this));
-    document.addEventListener('mousemove', this.onMove.bind(this));
-    document.addEventListener('mouseup', this.onEnd.bind(this));
+        document.addEventListener('mousedown', this.onStart.bind(this));
+        document.addEventListener('mousemove', this.onMove.bind(this));
+        document.addEventListener('mouseup', this.onEnd.bind(this));
         
         window.onresize = debounce(this.assignContainerWidths.bind(this), 300);
         window.onresize = debounce(this.resetPositions.bind(this), 300);
-  }
+    }
     
     onStart(e) {
-    if (!e.target.classList.contains('meat'))
-      return;
+        if (!e.target.classList.contains('meat'))
+            return;
         
         this.isDragging = true;
         
@@ -65,7 +65,7 @@ class Hand {
         }
         
         this.startX = e.pageX || e.touches[0].pageX;
-    this.currentX = this.startX;
+        this.currentX = this.startX;
         
         // we trigger the audio on user interaction event, so we can call it again in a callback later
         // http://stackoverflow.com/questions/15088638/playing-html5-audio-from-mobile-devices-from-callback
@@ -108,7 +108,7 @@ class Hand {
     }
     
     update() {
-    requestAnimationFrame(this.update.bind(this));
+        requestAnimationFrame(this.update.bind(this));
         
         if(!this.isDragging)
             return;
@@ -189,7 +189,7 @@ class Hand {
         // if(this.currentX < 15 && mouth.isSucking) {
         //  mouth.stopSucking();
         // }
-  }
+    }
 
     // recalled on resize
     assignContainerWidths() {
