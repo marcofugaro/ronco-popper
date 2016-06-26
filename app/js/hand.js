@@ -75,7 +75,7 @@ class Hand {
         mouth.gaggingSound.play();
         mouth.gaggingSound.pause();
         mouth.gaggingSound.currentTime = 0;
-        
+        // TODO use audio apis
         
         this.rAF = requestAnimationFrame(this.update.bind(this));
         
@@ -191,7 +191,8 @@ class Hand {
         // }
     }
 
-    // recalled on resize
+    // recalled on resize 
+    // TODO make this actually work well
     assignContainerWidths() {
         this.containerWidth = this.container.getBoundingClientRect().width;
         this.triggerX = this.containerWidth * 0.505;

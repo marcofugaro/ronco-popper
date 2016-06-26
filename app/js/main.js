@@ -7,11 +7,14 @@ setTimeout(() => {
         document.querySelector('.hint').className += ' visible';
 }, 3000);
 
-
+// TODO refactor thi bit
+const roncoSound = document.getElementById('ronco-sound');
 ['mousedown', 'touchstart'].forEach((el) => {
     document.querySelector('.ronco-button').addEventListener(el, function() {
         this.classList.add('clicked');
-        document.getElementById('ronco-sound').play();
+        roncoSound.pause();
+        roncoSound.currentTime = 0;
+        roncoSound.play();
         setTimeout(() => {
             this.classList.remove('clicked');
         }, 50);
