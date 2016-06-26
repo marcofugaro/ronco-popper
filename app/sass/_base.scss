@@ -13,3 +13,13 @@ body {
     position: relative;
     overflow: hidden;
 }
+
+.github-fork-ribbon {
+    &::before {
+        background-color: #111;
+    }
+
+    @media (max-width: $mobile-breakpoint) {
+        display: none;
+    }
+}
