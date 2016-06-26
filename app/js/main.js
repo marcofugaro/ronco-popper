@@ -11,6 +11,7 @@ setTimeout(() => {
 ['mousedown', 'touchstart'].forEach((el) => {
     document.querySelector('.ronco-button').addEventListener(el, function() {
         this.classList.add('clicked');
+        document.getElementById('ronco-sound').play();
         setTimeout(() => {
             this.classList.remove('clicked');
         }, 50);
