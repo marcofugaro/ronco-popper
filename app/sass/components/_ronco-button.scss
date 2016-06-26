@@ -2,13 +2,14 @@
     width: $ronco-width;
     height: $ronco-width;
     position: absolute;
-    top: 15%;
+    top: 6%;
     left: 50%;
     background-color: $ronco-color;
     border-radius: 50%;
     overflow: hidden;
     border: none;
     outline: none;
+    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     box-shadow:
             0 1px darken($ronco-color, 17%), //TODO make this in sass
@@ -65,5 +66,16 @@
         left: 50%;
         transform: translate(-50%, -50%);
         pointer-events: none;
+    }
+
+
+    @media (max-width: $mobile-breakpoint) {    
+        width: $responsive-ronco-width;
+        height: $responsive-ronco-width;
+        top: 75%;
+        &::before {
+            width: $responsive-ronco-width * 1.06;
+            height: $responsive-ronco-width * 1.06;
+        }
     }
 }

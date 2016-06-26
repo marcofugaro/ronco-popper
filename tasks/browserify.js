@@ -21,7 +21,7 @@ gulp.task('browserify', function() {
         .pipe(source(config.browserify.bundleName))
         .pipe(buffer())
         .pipe(sourcemaps.init({ loadMaps: true }))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(config.browserify.dest));
 });

@@ -19,7 +19,8 @@
         animation: jump-up 1.7s 5s ease infinite;
     }
     
-    @media (max-width: 700px) {
+    @media (max-width: $mobile-breakpoint) {
+        top: 60%;
         font-size: 8vw;
         line-height: 12vw;
         span { font-size: 14vw; }
