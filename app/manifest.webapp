@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Ronco Popper",
   "launch_path": "/index.html",
   "description": "A simple and stupid web app I made to try out the Service Worker APIs.",

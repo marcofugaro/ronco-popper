@@ -1,6 +1,6 @@
 console.log('Service Worker started: ', self);
 
-var CACHE_VERSION = 'ronco-v1.0.0';
+var CACHE_VERSION = 'ronco-v1.0.1';
 var urlsToCache = [
     '/',
     '/css/style.min.css',
