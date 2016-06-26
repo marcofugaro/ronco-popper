@@ -108,10 +108,10 @@ class Hand {
     }
     
     update() {
-        requestAnimationFrame(this.update.bind(this));
-        
         if(!this.isDragging)
             return;
+
+        requestAnimationFrame(this.update.bind(this));
 
         this.distanceX = this.currentX - this.startX;
         this.totalDistanceX = this.savedDistanceX + this.distanceX;
