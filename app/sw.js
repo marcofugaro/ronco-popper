@@ -11,7 +11,7 @@ var urlsToCache = [
     '/images/ronco.png',
     '/sounds/gagging.mp3',
     '/sounds/pop.mp3',
-    // '/sounds/ah-ma-e-ronco.mp3'
+    '/sounds/ah-ma-e-ronco.mp3'
 ];
 
 
