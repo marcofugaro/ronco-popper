@@ -1,11 +1,18 @@
 import hand from './hand';
 import mouth from './mouth';
-import roncoButton from './roncoButton';
 
+// show the hint after a few second
 setTimeout(() => {
     if(document.querySelector('.hint'))
-        document.querySelector('.hint').className += ' visible';
+        document.querySelector('.hint').classList.add('visible');
 }, 3000);
+
+// play the sound of the ronco button
+const roncoSound = document.getElementById('ronco-sound');
+document.querySelector('.ronco-button').addEventListener('click', function() {
+    roncoSound.currentTime = 0;
+    roncoSound.play();
+});
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js', { scope: './' })
