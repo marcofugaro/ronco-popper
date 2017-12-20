@@ -1,5 +1,9 @@
 const audioContext = new AudioContext()
 
+// TODO unlock the Web Audio APIs on iOS?
+// https://paulbakaus.com/tutorials/html5/web-audio-on-ios/
+// https://github.com/pavle-goloskokovic/web-audio-touch-unlock
+
 export function downloadAudio(url) {
   return fetch(url)
     .then(response => response.arrayBuffer())
