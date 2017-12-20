@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import hand from './hand'
 import mouth from './mouth'
 
