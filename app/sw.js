@@ -1,6 +1,6 @@
 console.log('Service Worker started: ', self);
 
-var CACHE_VERSION = 'ronco-v1.1.0';
+var CACHE_VERSION = 'ronco-v1.1.1';
 var urlsToCache = [
     '/',
     '/css/style.min.css',
@@ -25,7 +25,7 @@ self.addEventListener('install', function(event) {
             return cache.addAll(urlsToCache).then(function() {
                 return self.skipWaiting();
             });
-            
+
         })
     );
 });
