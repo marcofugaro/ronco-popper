@@ -1,4 +1,3 @@
-// import 'gsap'
 import throttle from 'lodash/throttle'
 import debounce from 'lodash/debounce'
 import lerp from './vendor/lerp'
@@ -40,20 +39,20 @@ class Hand {
     this.assignContainerWidths()
   }
 
-  addEventListeners() {
-    document.addEventListener('touchstart', this.onStart.bind(this))
-    document.addEventListener('touchmove', this.onMove.bind(this))
-    document.addEventListener('touchend', this.onEnd.bind(this))
+  addEventListeners = () => {
+    document.addEventListener('touchstart', this.onStart)
+    document.addEventListener('touchmove', this.onMove)
+    document.addEventListener('touchend', this.onEnd)
 
-    document.addEventListener('mousedown', this.onStart.bind(this))
-    document.addEventListener('mousemove', this.onMove.bind(this))
-    document.addEventListener('mouseup', this.onEnd.bind(this))
+    document.addEventListener('mousedown', this.onStart)
+    document.addEventListener('mousemove', this.onMove)
+    document.addEventListener('mouseup', this.onEnd)
 
-    window.onresize = debounce(this.assignContainerWidths.bind(this), 300)
-    window.onresize = debounce(this.resetPositions.bind(this), 300)
+    window.onresize = debounce(this.assignContainerWidths, 300)
+    window.onresize = debounce(this.resetPositions, 300)
   }
 
-  onStart(e) {
+  onStart = (e) => {
     if (!e.target.classList.contains('meat'))
       return
 
@@ -77,19 +76,19 @@ class Hand {
     mouth.gaggingSound.currentTime = 0
     // TODO use audio apis
 
-    this.rAF = requestAnimationFrame(this.update.bind(this))
+    this.rAF = requestAnimationFrame(this.update)
 
     e.preventDefault()
   }
 
-  onMove(e) {
+  onMove = (e) => {
     if (!this.isDragging)
       return
 
     this.currentX = e.pageX || e.touches[0].pageX
   }
 
-  onEnd(e) {
+  onEnd = (e) => {
     this.isDragging = false
 
     cancelAnimationFrame(this.rAF)
@@ -109,25 +108,25 @@ class Hand {
     }
   }
 
-  update() {
+  update = () => {
     if (!this.isDragging)
       return
 
-    requestAnimationFrame(this.update.bind(this))
+    requestAnimationFrame(this.update)
 
     this.distanceX = this.currentX - this.startX
     this.totalDistanceX = this.savedDistanceX + this.distanceX
 
     // let's shake the hand, remove the tip and play gagging sound
     if (this.totalDistanceX > this.maximumX) {
-      document.addEventListener('touchmove', this.shakeHand.bind(this))
-      document.addEventListener('mousemove', this.shakeHand.bind(this))
+      document.addEventListener('touchmove', this.shakeHand)
+      document.addEventListener('mousemove', this.shakeHand)
       this.easeStrength = 0.03
       if (!this.tip.classList.contains('hide')) this.tip.classList.add('hide')
       if (mouth.gaggingSound.paused) mouth.gaggingSound.play()
     } else if (this.rotation !== 0) {
-      document.removeEventListener('touchmove', this.shakeHand.bind(this))
-      document.removeEventListener('mousemove', this.shakeHand.bind(this))
+      document.removeEventListener('touchmove', this.shakeHand)
+      document.removeEventListener('mousemove', this.shakeHand)
       this.easeStrength = this.initialEaseStrength
       this.rotation = 0
       if (this.tip.classList.contains('hide')) this.tip.classList.remove('hide')
@@ -172,7 +171,7 @@ class Hand {
     //start the interval to pop it
     if (this.totalDistanceX < this.triggerX && !this.popCheckInterval && mouth.isSucking) {
       this.oldKeyframeX = this.keyframeX = this.triggerX
-      this.popCheckInterval = setInterval(this.setPopKeyframes.bind(this), this.popCheckFactor)
+      this.popCheckInterval = setInterval(this.setPopKeyframes, this.popCheckFactor)
     }
 
     //stop the interval to pop it
@@ -195,7 +194,7 @@ class Hand {
 
   // recalled on resize
   // TODO make this actually work well
-  assignContainerWidths() {
+  assignContainerWidths = () => {
     this.containerWidth = this.container.getBoundingClientRect().width
     this.triggerX = this.containerWidth * 0.505
     this.maximumX = this.containerWidth * 0.54
@@ -207,7 +206,7 @@ class Hand {
     }
   }
 
-  resetPositions() {
+  resetPositions = () => {
     this.currentX = this.startX = 0
     this.update()
   }
@@ -216,7 +215,7 @@ class Hand {
     this.rotation = Math.floor(Math.random() * (this.rotationMax - this.rotationMin + 1)) + this.rotationMin
   }, 40)
 
-  setPopKeyframes() {
+  setPopKeyframes = () => {
     this.oldKeyframeX = this.keyframeX
     this.keyframeX = this.currentX
   }
