@@ -2,6 +2,7 @@ import throttle from 'lodash/throttle'
 import debounce from 'lodash/debounce'
 import lerp from './vendor/lerp'
 import mouth from './mouth'
+import { playAudio, stopAudio } from './vendor/audio-utils'
 
 
 const IS_TOUCH = 'ontouchstart' in window
@@ -40,13 +41,13 @@ class Hand {
   }
 
   addEventListeners = () => {
-    document.addEventListener('touchstart', this.onStart)
-    document.addEventListener('touchmove', this.onMove)
-    document.addEventListener('touchend', this.onEnd)
+    document.addEventListener('touchstart', this.onStart, { passive: false })
+    document.addEventListener('touchmove', this.onMove, { passive: false })
+    document.addEventListener('touchend', this.onEnd, { passive: false })
 
-    document.addEventListener('mousedown', this.onStart)
-    document.addEventListener('mousemove', this.onMove)
-    document.addEventListener('mouseup', this.onEnd)
+    document.addEventListener('mousedown', this.onStart, { passive: false })
+    document.addEventListener('mousemove', this.onMove, { passive: false })
+    document.addEventListener('mouseup', this.onEnd, { passive: false })
 
     window.onresize = debounce(this.assignContainerWidths, 300)
     window.onresize = debounce(this.resetPositions, 300)
@@ -65,16 +66,6 @@ class Hand {
 
     this.startX = e.pageX || e.touches[0].pageX
     this.currentX = this.startX
-
-    // we trigger the audio on user interaction event, so we can call it again in a callback later
-    // http://stackoverflow.com/questions/15088638/playing-html5-audio-from-mobile-devices-from-callback
-    mouth.popSound.play()
-    mouth.popSound.pause()
-    mouth.popSound.currentTime = 0
-    mouth.gaggingSound.play()
-    mouth.gaggingSound.pause()
-    mouth.gaggingSound.currentTime = 0
-    // TODO use audio apis
 
     this.rAF = requestAnimationFrame(this.update)
 
@@ -103,8 +94,8 @@ class Hand {
     this.distanceX = 0
 
     // stop gagging
-    if (!mouth.gaggingSound.paused) {
-      mouth.gaggingSound.pause()
+    if (mouth.gaggingSound.isPlaying) {
+      stopAudio(mouth.gaggingSound)
     }
   }
 
@@ -123,14 +114,18 @@ class Hand {
       document.addEventListener('mousemove', this.shakeHand)
       this.easeStrength = 0.03
       if (!this.tip.classList.contains('hide')) this.tip.classList.add('hide')
-      if (mouth.gaggingSound.paused) mouth.gaggingSound.play()
+      if (!mouth.gaggingSound.isPlaying) {
+        playAudio(mouth.gaggingSound, { looping: true })
+      }
     } else if (this.rotation !== 0) {
       document.removeEventListener('touchmove', this.shakeHand)
       document.removeEventListener('mousemove', this.shakeHand)
       this.easeStrength = this.initialEaseStrength
       this.rotation = 0
       if (this.tip.classList.contains('hide')) this.tip.classList.remove('hide')
-      if (!mouth.gaggingSound.paused) mouth.gaggingSound.pause()
+      if (mouth.gaggingSound.isPlaying) {
+        stopAudio(mouth.gaggingSound)
+      }
     }
 
     // let's pull the mouth

@@ -1,6 +1,7 @@
 import 'gsap'
 import './vendor/MorphSVGPlugin.min'
 import hand from './hand'
+import { downloadAudio, playAudio } from './vendor/audio-utils'
 
 class Mouth {
   el = document.querySelectorAll('.mouth-up, .mouth-down')
@@ -10,12 +11,22 @@ class Mouth {
   mouthX = 0
   lipProgress = 0
 
-  gaggingSound = document.getElementById('gagging-sound')
-  popSound = document.getElementById('pop-sound')
+  gaggingSound = null
+  popSound = null
 
   constructor() {
     const duration = 0.4
     const ease = Power3.easeOut
+
+    downloadAudio('sounds/pop.mp3')
+      .then((audioBuffer) => {
+        this.popSound = audioBuffer
+      })
+
+    downloadAudio('sounds/gagging.mp3')
+      .then((audioBuffer) => {
+        this.gaggingSound = audioBuffer
+      })
 
     this.tl = new TimelineMax({ paused: true })
       .add('open')
@@ -43,8 +54,7 @@ class Mouth {
   stopSucking() {
     this.isSucking = false
 
-    this.popSound.currentTime = 0
-    this.popSound.play()
+    playAudio(this.popSound)
 
     this.tl.timeScale(2).tweenTo('open')
 
