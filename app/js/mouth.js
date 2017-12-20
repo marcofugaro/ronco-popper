@@ -1,22 +1,22 @@
-import 'gsap';
-import './vendor/MorphSVGPlugin.min';
-import hand from './hand';
+import 'gsap'
+import './vendor/MorphSVGPlugin.min'
+import hand from './hand'
 
 class Mouth {
-    el = document.querySelectorAll('.mouth-up, .mouth-down');
-    
-    tl = null;
-    isSucking = false;
-    mouthX = 0;
-    lipProgress = 0;
+    el = document.querySelectorAll('.mouth-up, .mouth-down')
 
-    gaggingSound = document.getElementById('gagging-sound');
-    popSound = document.getElementById('pop-sound');
+    tl = null
+    isSucking = false
+    mouthX = 0
+    lipProgress = 0
+
+    gaggingSound = document.getElementById('gagging-sound')
+    popSound = document.getElementById('pop-sound')
 
     constructor() {
-        const duration = 0.4;
-        const ease = Power3.easeOut;
-        
+        const duration = 0.4
+        const ease = Power3.easeOut
+
         this.tl = new TimelineMax({ paused: true })
             .add('open')
             .to('.mouth-open .lip-black-lower', duration, { morphSVG: '.mouth-gagging .lip-black-lower', ease: ease }, 'open')
@@ -31,42 +31,42 @@ class Mouth {
             .to('.mouth-open .lip-red-lower', duration, { morphSVG: '.mouth-sucking .lip-red-lower' }, 'gagging')
             .to('.mouth-open .lip-red-upper', duration, { morphSVG: '.mouth-sucking .lip-red-upper' }, 'gagging')
             .to('.mouth-open .teeth', duration, { morphSVG: '.mouth-sucking .teeth' }, 'gagging')
-            .add('sucking');
+            .add('sucking')
     }
 
     startSucking() {
-        this.isSucking = true;
-        
-        this.tl.timeScale(1).tweenTo('gagging');
+        this.isSucking = true
+
+        this.tl.timeScale(1).tweenTo('gagging')
     }
 
     stopSucking() {
-        this.isSucking = false;
-        
-        this.popSound.currentTime = 0;
-        this.popSound.play();
-        
-        this.tl.timeScale(2).tweenTo('open');
-        
-        clearInterval(hand.popCheckInterval);
-        hand.popCheckInterval = null;
-        hand.oldKeyframeX = hand.keyframeX = 0;
-        
-        hand.isLerping = true;
-        setTimeout(() => { hand.isLerping = false; }, 500);
-        
-        TweenMax.to(this.el, hand.easeStrength, { x: 0 });
+        this.isSucking = false
+
+        this.popSound.currentTime = 0
+        this.popSound.play()
+
+        this.tl.timeScale(2).tweenTo('open')
+
+        clearInterval(hand.popCheckInterval)
+        hand.popCheckInterval = null
+        hand.oldKeyframeX = hand.keyframeX = 0
+
+        hand.isLerping = true
+        setTimeout(() => { hand.isLerping = false }, 500)
+
+        TweenMax.to(this.el, hand.easeStrength, { x: 0 })
     }
 
     followFinger() {
         // let's move th mouth
-        this.mouthX = - Math.pow(hand.triggerX - hand.totalDistanceX, 1/2.5) * 1.2;
-        TweenMax.to(this.el, hand.easeStrength, { x: this.mouthX });
-        
+        this.mouthX = - Math.pow(hand.triggerX - hand.totalDistanceX, 1/2.5) * 1.2
+        TweenMax.to(this.el, hand.easeStrength, { x: this.mouthX })
+
         // let's close the mouth more
-        this.lipProgress = Math.pow(hand.triggerX - hand.totalDistanceX, 1/2.5) * 2;
-        this.tl.progress(0.5 + this.lipProgress / 100);
+        this.lipProgress = Math.pow(hand.triggerX - hand.totalDistanceX, 1/2.5) * 2
+        this.tl.progress(0.5 + this.lipProgress / 100)
     }
 }
 
-export default new Mouth();
+export default new Mouth()
